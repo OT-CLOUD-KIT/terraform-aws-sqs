@@ -1,6 +1,6 @@
 name    = ["sample", "demo"]
-org     = "pchandna"
-project = "traider"
+org     = "example"
+project = "dummy"
 env     = "development"
 client  = "opstree"
 fifo    = "true"

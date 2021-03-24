@@ -91,8 +91,8 @@ output "dlq_id" {
 | name | 	List of the SQS queue names. If you provide multiple names, each queue will be setup with the same configuration | list | - | yes |
 | tag_project | Enter the name of project | string | - | yes |
 | tag_app_env | Enter the name of envirnment | string | - | yes |
-| tag_client | Enter the name of client | string | - | no |
-| tag_organization | Enter the organisation name | string | - | no |
+| tag_client | Enter the name of client | string | - | yes |
+| tag_organization | Enter the organisation name | string | - | yes |
 | message_retention_seconds | The number of seconds Amazon SQS retains a message. | number | 345600 | no |
 | max_message_size | The limit of how many bytes a message can contain before Amazon SQS rejects it. | number | 262144 | no |
 | delay_seconds | The time in seconds that the delivery of all messages in the queue will be delayed. | number | 0 | no |
