@@ -40,6 +40,11 @@ module "sqs" {
 ```sh
 $   cat output.tf
 /*-------------------------------------------------------*/
+output "arn" {
+  value       = aws_sqs_queue.sqs_queue.*.arn
+  description = "The Amazon Resource Name (ARN) specifying the role."
+}
+
 output "id" {
   value       = aws_sqs_queue.sqs_queue.*.id
   description = "The URL for the created Amazon SQS queue."
@@ -88,6 +93,6 @@ output "dlq_id" {
 
 ### Contributors
 
-[![Pawan Chandna]][pawan_homepage]<br/>[Pawan Chandna][pawan_chandna] 
+[[Pawan Chandna]][pawan_homepage]<br/>[Pawan Chandna][pawan_chandna] 
 
  [pawan_homepage]: https://gitlab.com/pawan.chandna

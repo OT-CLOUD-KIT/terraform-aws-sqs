@@ -6,5 +6,5 @@ module "sqs" {
   tag_client       = var.client
   name             = var.name
   fifo_queue       = var.fifo
-  dead_letter_queue = false
+  dead_letter_queue = true
 }

@@ -7,7 +7,7 @@ resource "aws_sqs_queue" "sqs_queue" {
   delay_seconds                     = var.delay_seconds
   receive_wait_time_seconds         = var.receive_wait_time_seconds
   fifo_queue                        = var.fifo_queue
-  redrive_policy                    = "{\"deadLetterTargetArn\":\"${var.dlq_arn != "" ? var.dlq_arn : element(concat(aws_sqs_queue.sqs_queue_dlq.*.arn, list("")), count.index)}\",\"maxReceiveCount\":${var.max_receive_count}}"
+  redrive_policy                    = var.dead_letter_queue == true ? "{\"deadLetterTargetArn\":\"${var.dlq_arn != "" ? var.dlq_arn : element(concat(aws_sqs_queue.sqs_queue_dlq.*.arn, list("")), count.index)}\",\"maxReceiveCount\":${var.max_receive_count}}": ""
   content_based_deduplication       = var.content_based_deduplication
   kms_master_key_id                 = var.kms_master_key_id
   kms_data_key_reuse_period_seconds = var.kms_data_key_reuse_period_seconds
