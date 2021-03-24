@@ -15,7 +15,7 @@ provider "aws" {
   profile = "default"
   region  = "us-east-1"
 }
-## For FIFO Queue
+## Example for FIFO Queue
 module "sqs" {
   source           = "../"
   tag_organization = var.org
@@ -25,7 +25,7 @@ module "sqs" {
   name             = var.name
   fifo_queue       = var.fifo
 }
-## For Standard Queue
+## Example for Standard Queue
 module "sqs" {
   source           = "../"
   tag_organization = var.org
@@ -33,6 +33,29 @@ module "sqs" {
   tag_app_env      = var.env
   tag_client       = var.client
   name             = var.name
+}
+
+## Example for enabling dead letter Queue in FIFO
+module "sqs" {
+  source           = "../"
+  tag_organization = var.org
+  tag_project      = var.project
+  tag_app_env      = var.env
+  tag_client       = var.client
+  name             = var.name
+  fifo_queue       = var.fifo
+  dead_letter_queue = true
+}
+
+## Example for enabling dead letter Queue in Standard
+module "sqs" {
+  source           = "../"
+  tag_organization = var.org
+  tag_project      = var.project
+  tag_app_env      = var.env
+  tag_client       = var.client
+  name             = var.name
+  dead_letter_queue = true
 }
 
 ```
