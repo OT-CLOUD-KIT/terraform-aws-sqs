@@ -25,8 +25,8 @@ Standard Queue
 - As the message is delivered on at a time but at the same time, it delivers more than one copy of a message.
 - It may happen that the message delivered is in the different order from the source in which they were sent.
 <p align="center">
-  <img src="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/images/sqs-what-is-sqs-standard-queue-diagram.png" width="400" >
-</p>              
+<img src="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/images/sqs-what-is-sqs-standard-queue-diagram.png" width="400" class="center">
+</p>            
 
 FIFO Queue
 
@@ -34,7 +34,7 @@ FIFO Queue
 - The message is not duplicated it is stored with the customer until and unless customer deletes it.
 - The messages are treated in first in first out order as the message sent and received is strictly preserved.
 <p align="center">
-  <img src="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/images/sqs-what-is-sqs-fifo-queue-diagram.png" width="400" >
+  <img src="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/images/sqs-what-is-sqs-fifo-queue-diagram.png" width="400" class="center">
 </p>
 
 ## What is dead-letter queues? 
