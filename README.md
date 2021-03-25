@@ -8,6 +8,43 @@
 - This terraform module will create a aws SQS.
 - This projecct is a part of opstree's ot-aws initiative for terraform modules.
 
+Terraform versions
+------------------
+
+Terraform 0.14.8
+
+## What is Amazon Simple Queue Service?
+
+Amazon Simple Queue Service (Amazon SQS) offers a secure, durable, and available hosted queue that lets you integrate and decouple distributed software systems and components. Amazon SQS offers common constructs such as dead-letter queues and cost allocation tags. It provides a generic web services API that you can access using any programming language that the AWS SDK supports.
+
+Amazon SQS supports both standard and FIFO queues.
+
+Standard Queue
+
+- It has a benefit of supporting an ample amount of transactions per second per API action.
+- As the message is delivered on at a time but at the same time, it delivers more than one copy of a message.
+- It may happen that the message delivered is in the different order from the source in which they were sent.
+<p align="center">
+  <img src="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/images/sqs-what-is-sqs-standard-queue-diagram.png" width="400" >
+</p>              
+
+FIFO Queue
+
+- It has a high throughput which can send 300 messages per second which include 300 send, receive, and delete operation per second.
+- The message is not duplicated it is stored with the customer until and unless customer deletes it.
+- The messages are treated in first in first out order as the message sent and received is strictly preserved.
+<p align="center">
+  <img src="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/images/sqs-what-is-sqs-fifo-queue-diagram.png" width="400" >
+</p>
+
+## What is dead-letter queues? 
+
+Amazon SQS supports dead-letter queues, which other queues (source queues) can target for messages that can't be processed (consumed) successfully. Dead-letter queues are useful for debugging your application or messaging system because they let you isolate problematic messages to determine why their processing doesn't succeed.
+
+## Important Notes
+
+The dead-letter queue of a FIFO queue must also be a FIFO queue. Similarly, the dead-letter queue of a standard queue must also be a standard queue.
+
 ## Usage
 
 ```hcl
@@ -17,82 +54,45 @@ provider "aws" {
 }
 ## Example for FIFO Queue
 module "sqs" {
-  source           = "../"
-  tag_organization = var.org
-  tag_project      = var.project
-  tag_app_env      = var.env
-  tag_client       = var.client
-  name             = var.name
-  fifo_queue       = var.fifo
+  source            = "./modules/sqs"
+  name              = ["dummy", "sample", "demo"]
+  tags              = { "Client" : "xyz", "Environment" : "dev" }
+  fifo_queue        = true
 }
 ## Example for Standard Queue
 module "sqs" {
-  source           = "../"
-  tag_organization = var.org
-  tag_project      = var.project
-  tag_app_env      = var.env
-  tag_client       = var.client
-  name             = var.name
+  source            = "./modules/sqs"
+  name              = ["dummy", "sample", "demo"]
+  tags              = { "Client" : "xyz", "Environment" : "dev" }
 }
 
 ## Example for enabling dead letter Queue in FIFO
 module "sqs" {
-  source           = "../"
-  tag_organization = var.org
-  tag_project      = var.project
-  tag_app_env      = var.env
-  tag_client       = var.client
-  name             = var.name
-  fifo_queue       = var.fifo
+  source            = "./modules/sqs"
+  name              = ["dummy", "sample", "demo"]
+  tags              = { "Client" : "opstree", "Environment" : "dev" }
+  fifo_queue        = true
   dead_letter_queue = true
 }
 
 ## Example for enabling dead letter Queue in Standard
 module "sqs" {
-  source           = "../"
-  tag_organization = var.org
-  tag_project      = var.project
-  tag_app_env      = var.env
-  tag_client       = var.client
-  name             = var.name
+  source            = "./modules/sqs"
+  name              = ["dummy", "sample", "demo"]
+  tags              = { "Client" : "opstree", "Environment" : "dev" }
   dead_letter_queue = true
 }
 
 ```
 
-```sh
-$   cat output.tf
-/*-------------------------------------------------------*/
-output "arn" {
-  value       = aws_sqs_queue.sqs_queue.*.arn
-  description = "The Amazon Resource Name (ARN) specifying the role."
-}
-
-output "id" {
-  value       = aws_sqs_queue.sqs_queue.*.id
-  description = "The URL for the created Amazon SQS queue."
-}
-
-output "dlq_arn" {
-  value       = aws_sqs_queue.sqs_queue_dlq.*.arn
-  description = "The Amazon Resource Name (ARN) specifying the role."
-}
-
-output "dlq_id" {
-  value       = aws_sqs_queue.sqs_queue_dlq.*.id
-  description = "The URL for the created Amazon SQS queue."
-}
-/*-------------------------------------------------------*/
-```
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| name | 	List of the SQS queue names. If you provide multiple names, each queue will be setup with the same configuration | list | - | yes |
-| tag_project | Enter the name of project | string | - | yes |
-| tag_app_env | Enter the name of envirnment | string | - | yes |
-| tag_client | Enter the name of client | string | - | yes |
-| tag_organization | Enter the organisation name | string | - | yes |
+| region | Define the target region value | string | "us-east-1" | no |
+| profile | select aws cli profile name | string | "default" | no |
+| name | 	List of the SQS queue names. If you provide multiple names, each queue will be setup with the same configuration | list |""| yes |
+| tags | Additional tags | string | "" | no |
 | message_retention_seconds | The number of seconds Amazon SQS retains a message. | number | 345600 | no |
 | max_message_size | The limit of how many bytes a message can contain before Amazon SQS rejects it. | number | 262144 | no |
 | delay_seconds | The time in seconds that the delivery of all messages in the queue will be delayed. | number | 0 | no |
@@ -104,6 +104,8 @@ output "dlq_id" {
 | visibility_timeout_seconds | The visibility timeout for the queue. | number | 30 | no |
 | dead_letter_queue | Enable dead letter queue | bool | false | no |
 | max_receive_count | Maximum receive count | number | 5 | no |
+
+
 ## Outputs
 
 | Name | Description |
@@ -116,6 +118,6 @@ output "dlq_id" {
 
 ### Contributors
 
-[[Pawan Chandna]][pawan_homepage]<br/>[Pawan Chandna][pawan_chandna] 
+[[Pawan Chandna]][pawan_homepage]<br/> 
 
  [pawan_homepage]: https://gitlab.com/pawan.chandna
