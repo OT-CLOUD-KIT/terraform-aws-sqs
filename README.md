@@ -89,8 +89,8 @@ module "sqs" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| region | Define the target region value | string | "us-east-1" | no |
-| profile | select aws cli profile name | string | "default" | no |
+| region | Define the target region value | string | "us-east-1" | yes |
+| profile | select aws cli profile name | string | "default" | yes |
 | name | 	List of the SQS queue names. If you provide multiple names, each queue will be setup with the same configuration | list |""| yes |
 | tags | Additional tags | string | "" | no |
 | message_retention_seconds | The number of seconds Amazon SQS retains a message. | number | 345600 | no |

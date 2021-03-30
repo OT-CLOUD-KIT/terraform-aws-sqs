@@ -1,6 +1,8 @@
+locals {
+  tags = { "ENVIRONMENT" : "test", "CLIENT" : "DEVOPS", "PROJECT" : "Demo", "ORGANISATION" : "opstree" }
+}
 module "sqs" {
   source            = "./modules/sqs"
   name              = ["sample", "demo"]
-  tags              = { "Client" : "opstree", "Environment" : "dev" }
-  dead_letter_queue = true
+  tags              = local.tags
 }
