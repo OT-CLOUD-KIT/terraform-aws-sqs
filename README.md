@@ -52,34 +52,38 @@ provider "aws" {
   profile = "default"
   region  = "us-east-1"
 }
+
+## Local tags are used to define common tags. 
+locals {
+  tags = { "ENVIRONMENT" : "test", "CLIENT" : "DEVOPS", "PROJECT" : "Demo", "ORGANISATION" : "opstree" }
+}
+
 ## Example for FIFO Queue
 module "sqs" {
   source            = "./modules/sqs"
-  name              = ["dummy", "sample", "demo"]
-  tags              = { "Client" : "xyz", "Environment" : "dev" }
+  name              = ["sample", "demo"]
+  tags              = merge({ PROVISIONER = "Terraform"},local.tags)
   fifo_queue        = true
 }
 ## Example for Standard Queue
 module "sqs" {
   source            = "./modules/sqs"
-  name              = ["dummy", "sample", "demo"]
-  tags              = { "Client" : "xyz", "Environment" : "dev" }
+  name              = ["sample", "demo"]
+  tags              = merge({ PROVISIONER = "Terraform"},local.tags)
 }
-
 ## Example for enabling dead letter Queue in FIFO
 module "sqs" {
   source            = "./modules/sqs"
-  name              = ["dummy", "sample", "demo"]
-  tags              = { "Client" : "opstree", "Environment" : "dev" }
+  name              = ["sample", "demo"]
+  tags              = merge({ PROVISIONER = "Terraform"},local.tags)
   fifo_queue        = true
   dead_letter_queue = true
 }
-
 ## Example for enabling dead letter Queue in Standard
 module "sqs" {
   source            = "./modules/sqs"
-  name              = ["dummy", "sample", "demo"]
-  tags              = { "Client" : "opstree", "Environment" : "dev" }
+  name              = ["sample", "demo"]
+  tags              = merge({ PROVISIONER = "Terraform"},local.tags)
   dead_letter_queue = true
 }
 
