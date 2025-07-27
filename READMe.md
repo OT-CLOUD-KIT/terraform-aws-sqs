@@ -41,8 +41,7 @@ A reusable Terraform module to create and manage **AWS SQS Queues** (Standard or
 module "sqs_queue" {
   source = "OT-CLOUD-KIT/terraform-aws-sqs.git"
 
-  base_name                          = "myapp"
-  name                               = ["orders", "billing"]
+  name                               = ["my-app-queue"]
   fifo_queue                         = true
   dead_letter_queue                  = true
 
@@ -58,10 +57,7 @@ module "sqs_queue" {
   kms_master_key_id                  = "alias/aws/sqs"
   kms_data_key_reuse_period_seconds  = 300
 
-  tags = {
-    Environment = "dev"
-    Owner       = "team-xyz"
-  }
+ 
 }
 ```
 

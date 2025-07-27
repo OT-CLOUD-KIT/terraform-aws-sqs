@@ -73,12 +73,6 @@ variable "kms_data_key_reuse_period_seconds" {
   default     = 300
 }
 
-# variable "tags" {
-#   description = "Tags to apply to the queue"
-#   type        = map(string)
-#   default     = {}
-# }
-
 
 variable "env" {
   description = "Environment code: 'd' (dev), 'p' (prod), 'q' (qa), 's' (stage), 'g' (global)."

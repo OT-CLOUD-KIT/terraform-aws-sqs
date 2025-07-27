@@ -20,7 +20,7 @@ module "naming" {
 
 
 module "sqs_queues" {
-  source = "../"
+  source = "git@github.com:OT-CLOUD-KIT/terraform-aws-sqs.git?ref=Feature"
 
   name                              = var.name
   fifo_queue                        = var.fifo_queue
