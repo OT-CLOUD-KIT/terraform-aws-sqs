@@ -32,6 +32,7 @@ A reusable Terraform module to create and manage **AWS SQS Queues** (Standard or
 
 ## Architecture
 
+![SQS](https://github.com/user-attachments/assets/409b9427-0ae9-4cd7-a9ac-8a9eb1497f51)
 
 ---
 
@@ -100,6 +101,7 @@ module "sqs_queue" {
 
 
 ## Contributors
+
 
 - [Piyush Upadhyay](https://github.com/piiiyuushh)
 - [Nikita Joshi](https://github.com/jnikita19)
