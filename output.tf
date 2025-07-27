@@ -1,16 +1,15 @@
-output "sqs_url" {
-  value       = module.sqs.id
-  description = "The URL for the created Amazon SQS queue."
+# =============================
+output "sqs_queue_arns" {
+  description = "ARNs of the SQS queues"
+  value       = { for k, q in aws_sqs_queue.sqs_queue : k => q.arn }
 }
-output "sqs_arn" {
-  value       = module.sqs.arn
-  description = "The Amazon Resource Name (ARN) specifying the role."
+
+output "sqs_queue_urls" {
+  description = "URLs of the SQS queues"
+  value       = { for k, q in aws_sqs_queue.sqs_queue : k => q.url }
 }
-output "dlq_url" {
-  value       = module.sqs.dlq_id
-  description = "The URL for the created Amazon SQS queue."
-}
-output "dlq_arn" {
-  value       = module.sqs.dlq_arn
-  description = "The Amazon Resource Name (ARN) specifying the role."
+
+output "sqs_dlq_arns" {
+  description = "ARNs of the DLQ queues (if created)"
+  value       = var.dead_letter_queue ? { for k, q in aws_sqs_queue.sqs_queue_dlq : k => q.arn } : {}
 }
