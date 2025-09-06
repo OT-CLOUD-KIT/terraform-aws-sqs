@@ -11,19 +11,7 @@ content_based_deduplication = true
 kms_master_key_id = "alias/aws/sqs"
 kms_data_key_reuse_period_seconds = 300
 
-random_alphanumeric_len = 4
-
-bu       = "ot"
-app      = "bp"
-env      = "d"
-resource = "SQS"
-tenant   = ""
-
-special = false
-upper   = false
-number  = true
-
-gen_no_of_names = 1
-
-team    = "infra"
-program = "ot"
+env  = "dev"
+app = "otcloud-kit"
+region = "us-east-1"
+owner = "opstree"
