@@ -1,0 +1,17 @@
+name = ["my-app-queue"]
+fifo_queue = true
+dead_letter_queue = true
+visibility_timeout_seconds = 45
+message_retention_seconds = 1209600
+max_message_size = 262144
+delay_seconds = 0
+receive_wait_time_seconds = 10
+max_receive_count = 3
+content_based_deduplication = true
+kms_master_key_id = "alias/aws/sqs"
+kms_data_key_reuse_period_seconds = 300
+
+env  = "dev"
+app = "otcloud-kit"
+region = "us-east-1"
+owner = "opstree"
